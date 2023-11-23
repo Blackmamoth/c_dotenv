@@ -20,7 +20,7 @@ void load_env(const char *file_path)
     char line[MAX_LINE_LENGTH];
     char variable[MAX_VARIABLE_LENGTH];
     char value[MAX_VALUE_LENGTH];
-    char quote = ' ';
+    char quote = '\0';
     int assigment_index = 0;
     int line_length = 0;
     int i = 0;
@@ -53,11 +53,13 @@ void load_env(const char *file_path)
                 assigment_index++;
             }
             value[i] = '\0';
-            if (quote != ' ')
+            if (quote != '\0')
             {
                 remove_quotes(value, strlen(value));
             }
-                }
+            setenv(variable, value, -1);
+        }
+        fclose(env);
     }
     else
     {
