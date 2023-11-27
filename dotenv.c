@@ -46,7 +46,8 @@ void load_env(const char *file_path)
     {
         while (fgets(line, MAX_LINE_LENGTH, env))
         {
-            value[0] = '\0';
+            if (line[0] == '\0' || line[0] == '#')
+                continue;
             line[strcspn(line, "\n")] = '\0';
             get_env_variable_name(variable, line);
             get_env_value(value, line);
