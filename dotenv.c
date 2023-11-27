@@ -6,6 +6,8 @@ void get_env_variable_name(char variable_name[], char line[])
     char variable[MAX_VARIABLE_LENGTH + 1];
     while (line[i] != ' ' && line[i] != '\0')
     {
+        if (line[i] == '=')
+            break;
         variable[i] = line[i];
         i++;
     }
@@ -51,7 +53,6 @@ void load_env(const char *file_path)
             line[strcspn(line, "\n")] = '\0';
             get_env_variable_name(variable, line);
             get_env_value(value, line);
-            printf("%s=%s\n", variable, value);
             setenv(variable, value, -1);
         }
         fclose(env);
