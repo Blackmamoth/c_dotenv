@@ -56,7 +56,7 @@ void load_env(const char *file_path)
     }
     else
     {
-        fprintf(stderr, "File [%s] does not exist.\n", file_path);
+        fprintf(stderr, "File [%s] does not exist or could not be opened.\n", file_path);
         return;
     }
 }
