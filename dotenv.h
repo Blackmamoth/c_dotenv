@@ -2,7 +2,7 @@
 #define DOTENV_H
 
 #define MAX_LINE_LENGTH 1024
-#define MAX_VARIABLE_LENGTH 31
+#define MAX_VARIABLE_LENGTH 256
 #define MAX_VALUE_LENGTH 1024
 #define EQUAL_SIGN "="
 

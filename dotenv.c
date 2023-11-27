@@ -1,17 +1,39 @@
 #include "dotenv.h"
 
-void remove_quotes(char str[], size_t length)
+void get_env_variable_name(char variable_name[], char line[])
 {
-    size_t j = 0;
-    for (size_t i = 0; i < length; i++)
+    int i = 0;
+    char variable[MAX_VARIABLE_LENGTH + 1];
+    while (line[i] != ' ' && line[i] != '\0')
     {
-        if (str[i] != '"' && str[i] != '\'')
-        {
-            str[j] = str[i];
-            j++;
-        }
+        variable[i] = line[i];
+        i++;
     }
-    str[j] = '\0';
+    variable[i] = '\0';
+    strcpy(variable_name, variable);
+}
+
+void get_env_value(char value[], char line[])
+{
+    char END_OF_LINE = ' ';
+    int i = strcspn(line, EQUAL_SIGN), j = 0;
+    char _value[MAX_VALUE_LENGTH + 1];
+    i++;
+    while (line[i] != '\0' && line[i] == ' ')
+        i++;
+    if (line[i] == '\'' || line[i] == '"')
+    {
+        END_OF_LINE = line[i];
+        i++;
+    }
+    while (line[i] != '\0' && line[i] != END_OF_LINE)
+    {
+        _value[j] = line[i];
+        i++;
+        j++;
+    }
+    _value[j] = '\0';
+    strcpy(value, _value);
 }
 
 void load_env(const char *file_path)
@@ -20,40 +42,14 @@ void load_env(const char *file_path)
     char line[MAX_LINE_LENGTH];
     char variable[MAX_VARIABLE_LENGTH];
     char value[MAX_VALUE_LENGTH];
-    char quote = '\0';
-    int assigment_index = 0;
-    int i = 0;
     if ((env = fopen(file_path, "r")) != NULL)
     {
         while (fgets(line, MAX_LINE_LENGTH, env))
         {
             value[0] = '\0';
-            assigment_index = 0;
-            i = 0;
             line[strcspn(line, "\n")] = '\0';
-            assigment_index = strcspn(line, EQUAL_SIGN);
-            if (line[assigment_index - 1] == ' ')
-                assigment_index--;
-            strncpy(variable, line, assigment_index);
-            variable[assigment_index] = '\0';
-            if (line[assigment_index] == ' ')
-                assigment_index++;
-            assigment_index++;
-            while (line[assigment_index] == ' ')
-                assigment_index++;
-            if (line[assigment_index] == '"' || line[assigment_index] == '\'')
-                quote = line[assigment_index];
-            while (line[assigment_index] != '\0')
-            {
-                value[i] = line[assigment_index];
-                i++;
-                assigment_index++;
-            }
-            value[i] = '\0';
-            if (quote != '\0')
-            {
-                remove_quotes(value, strlen(value));
-            }
+            get_env_variable_name(variable, line);
+            get_env_value(value, line);
             setenv(variable, value, -1);
         }
         fclose(env);
