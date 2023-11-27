@@ -46,11 +46,12 @@ void load_env(const char *file_path)
     {
         while (fgets(line, MAX_LINE_LENGTH, env))
         {
-            if (line[0] == '\0' || line[0] == '#')
+            if (line[0] == '\n' || line[0] == '#')
                 continue;
             line[strcspn(line, "\n")] = '\0';
             get_env_variable_name(variable, line);
             get_env_value(value, line);
+            printf("%s=%s\n", variable, value);
             setenv(variable, value, -1);
         }
         fclose(env);
