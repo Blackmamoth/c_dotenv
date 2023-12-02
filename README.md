@@ -29,19 +29,19 @@ A C program/library to read environment variables from a .env file, similar to o
          // other logic...
      }
    ```
-  4. Your `.env` file can look something like this:
+  3. Your `.env` file can look something like this:
   ```python
   myVar="myVarValue"
   myvar = "myvarvalue"
   #mycommentedvar = "mycommentedvarvalue"
   ```
-  3. Then compile you're program using `gcc` or similar compiler:
+  4. Then compile you're program using `gcc` or similar compiler:
   ```sh
   gcc main.c dotenv.c -o main
 
   ```
 
-  4. Or if you created a shared library:
+  5. Or if you created a shared library:
   ```sh
   gcc main.c -ldotenv -o main # or whatever you named your library
   ```
