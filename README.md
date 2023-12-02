@@ -4,11 +4,12 @@ A C program/library to read environment variables from a .env file, similar to o
 
 ## Usage
 
-  1. To use dotenv library in your project simply add the `dotenv.c` and `dotenv.h` files in your project as shown below or create a <a href="https://www.cprogramming.com/tutorial/shared-libraries-linux-gcc.html">
+  1. To use dotenv library in your project simply add the `dotenv.c` and `dotenv.h` files in your project along with your `.env` file as shown below or create a <a href="https://www.cprogramming.com/tutorial/shared-libraries-linux-gcc.html">
   shared library</a> as per your need:
 
 
   ```
+  ├── .env
   ├── dotenv.c
   ├── dotenv.h
   └── main.c
